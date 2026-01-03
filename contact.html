@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Christopher's Meat Market</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+
+    <!-- Add custom CSS here -->
+    <link href="css/business-casual.css" rel="stylesheet">
+  </head>
+
+  <body>
+
+    <div class="brand">Christopher's Meat Market</div>
+    <div class="address-bar">6146 Perth Street | Richmond, Ontario K0A 2Z0 | (613) 838-8800</div>
+
+    <nav class="navbar navbar-default" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="index.html">Christopher's</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="specials.html">Specials</a></li>
+            <li><a href="services.html">On-Site Services</a></li>
+            <li class="active"><a href="contact.html">Contact</a></li>
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container -->
+    </nav>
+
+    <div class="container">
+
+      <div class="row">
+        <div class="box">
+          <div class="col-lg-12">
+            <hr>
+            <h2 class="intro-text text-center">Contact <strong>Christopher's Meat Market</strong></h2>
+            <hr>
+          </div>
+          <div class="col-md-8">
+            <div id="map-canvas" style="border: 1px solid #999999; height: 450px;">
+              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2811.678265297158!2d-75.84403566715355!3d45.193608692634434!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4ccdfa3fa70f391f%3A0x580aaaa575a45fbc!2sChristopher&#39;s%20Meat%20Market!5e0!3m2!1sen!2sca!4v1676746761332!5m2!1sen!2sca" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <p>Phone:<br><strong>(613) 838-8800</strong></p>
+            <!-- <p>Email:<br><strong>chris@christophersmeatmarket.com</strong></p> -->
+            <p>Address:<br><strong>6146 Perth Street<br>Richmond, Ontario K0A 2Z0</strong></p>
+            <p>
+               Hours:<br>
+               <table style="width: 300px;">
+                  <tr><td><strong>Monday</strong></td><td>Closed</td></tr>
+                  <tr><td><strong>Tuesday</strong></td><td>9:30 am – 5:00 pm</td></tr>
+                  <tr><td><strong>Wednesday</strong></td><td>9:30 am – 5:00 pm</td></tr>
+                  <tr><td><strong>Thursday</strong></td><td>9:30 am – 5:00 pm</td></tr>
+                  <tr><td><strong>Friday</strong></td><td>9:30 am – 5:00 pm</td></tr>
+                  <tr><td><strong>Saturday</strong></td><td>9:00 am – 5:00 pm</td></tr>
+                  <tr><td><strong>Sunday</strong></td><td>Closed</td></tr>
+               </table>
+            </p>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+      </div>
+
+      <!--
+      <div class="row">
+        <div class="box">
+          <div class="col-lg-12">
+            <hr>
+            <h2 class="intro-text text-center">Contact <strong>form</strong></h2>
+            <hr>
+            <p>This contact form is just the form elements, it is not a working form. You will have to make the form work by yourself, or take it out if you can't figure out how to make it work.</p>
+                <form role="form">
+                  <div class="row">
+                    <div class="form-group col-lg-4">
+                      <label>Name</label>
+                      <input type="text" class="form-control">
+                    </div>
+                    <div class="form-group col-lg-4">
+                      <label>Email Address</label>
+                      <input type="email" class="form-control">
+                    </div>
+                    <div class="form-group col-lg-4">
+                      <label for="input3">Phone Number</label>
+                      <input type="phone" class="form-control">
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="form-group col-lg-12">
+                      <label>Message</label>
+                      <textarea class="form-control" rows="6"></textarea>
+                    </div>
+                    <div class="form-group col-lg-12">
+                      <input type="hidden" name="save" value="contact">
+                      <button type="submit" class="btn btn-default">Submit</button>
+                    </div>
+                </div>
+              </form>
+          </div>
+        </div>
+      </div>
+      -->
+
+    </div><!-- /.container -->
+
+    <footer>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12 text-center">
+            <p>Copyright &copy; Christopher's Meat Market 2013</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Bootstrap core JavaScript -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <!-- Make sure to add jQuery - download the most recent version at http://jquery.com/ -->
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script>
+	  // Activates the Carousel
+	  $('.carousel').carousel({
+		interval: 5000
+	  })
+	</script>
+  </body>
+</html>
