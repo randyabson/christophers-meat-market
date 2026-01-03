@@ -1,0 +1,34 @@
+# robots.txt for Christopher's Meat Market
+
+# Allow all search engines and AI training bots
+User-agent: *
+Allow: /
+
+# Allow common AI training bots
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+# Sitemap location (you can add this later if you create a sitemap)
+# Sitemap: https://yourdomain.com/sitemap.xml
+
