@@ -1,0 +1,6 @@
+name = "christophers-meat-market"
+compatibility_date = "2026-01-03"
+
+[assets]
+directory = "./public"
+
