@@ -29,6 +29,6 @@ Allow: /
 User-agent: Applebot-Extended
 Allow: /
 
-# Sitemap location (you can add this later if you create a sitemap)
-# Sitemap: https://yourdomain.com/sitemap.xml
+# Sitemap location
+Sitemap: https://christophersmeatmarket.com/sitemap.xml
 

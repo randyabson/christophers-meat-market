@@ -18,7 +18,9 @@ $RECYCLE.BIN/
 .Trash-*
 
 # IDE / Editor files
-.vscode/
+# Allow .vscode/ and .cursor/ settings to be committed for team consistency
+# .vscode/
+# .cursor/
 .idea/
 *.swp
 *.swo
@@ -40,8 +42,8 @@ yarn-error.log*
 
 # Dependencies (if you add npm packages later)
 node_modules/
-package-lock.json
-yarn.lock
+# Note: package-lock.json SHOULD be committed for reproducible builds
+# yarn.lock
 
 # Build artifacts (if you add a build process)
 dist/

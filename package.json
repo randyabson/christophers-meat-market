@@ -1,0 +1,29 @@
+{
+  "name": "christophers-meat-market",
+  "version": "1.0.0",
+  "description": "Christopher's Meat Market - Static website",
+  "scripts": {
+    "start": "http-server public -p 8080 -o",
+    "dev": "http-server public -p 8080 -o",
+    "lint": "npm run lint:html && npm run lint:css",
+    "lint:html": "htmlhint public/**/*.html",
+    "lint:css": "stylelint \"public/**/*.css\"",
+    "lint:fix": "stylelint \"public/**/*.css\" --fix",
+    "format:html": "node scripts/format-html.js",
+    "update-business-data": "node scripts/update-business-data.js && npm run format:html"
+  },
+  "keywords": [
+    "static-site",
+    "butcher-shop"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^9.39.2",
+    "htmlhint": "^1.1.4",
+    "http-server": "^14.1.1",
+    "js-beautify": "^1.15.1",
+    "stylelint": "^16.2.1",
+    "stylelint-config-standard": "^39.0.1"
+  }
+}
