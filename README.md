@@ -33,7 +33,7 @@ christophers-meat-market/
 │   ├── business-data.js          # Business data (edit this to update site)
 │   └── update-business-data.js   # Auto-update script
 ├── public/
-│   ├── css/business-casual.css   # All styles
+│   ├── css/main.css              # All styles
 │   ├── js/site.js                # Shared JavaScript
 │   ├── index.html                # Home page (auto-updated)
 │   ├── contact.html              # Contact page (auto-updated)
