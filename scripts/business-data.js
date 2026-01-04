@@ -49,6 +49,16 @@ module.exports = {
     { day: "Sunday", open: null, close: null, closed: true }
   ],
   
+  // Temporary Closure
+  // Set to null when business is operating normally
+  // Set to an object with startDate, endDate (ISO format: "YYYY-MM-DD"), and optional message
+  // Example: { startDate: "2025-01-01", endDate: "2025-02-03", message: "Closed for annual vacation" }
+  temporaryClosure: {
+    startDate: "2026-01-01",
+    endDate: "2026-02-02",
+    message: "Closed for annual family vacation"
+  },
+  
   // Default Images
   images: {
     defaultImage: "img/slide-1.jpg"

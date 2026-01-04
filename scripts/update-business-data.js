@@ -32,6 +32,53 @@ function formatTime12Hour(time24) {
 }
 
 /**
+ * Format date for display (e.g., "January 1, 2025")
+ * @param {string} dateStr - Date in ISO format (YYYY-MM-DD)
+ * @returns {string} - Formatted date string
+ */
+function formatDate(dateStr) {
+  const date = new Date(dateStr + 'T00:00:00');
+  const months = ['January', 'February', 'March', 'April', 'May', 'June', 
+                  'July', 'August', 'September', 'October', 'November', 'December'];
+  return months[date.getMonth()] + ' ' + date.getDate() + ', ' + date.getFullYear();
+}
+
+/**
+ * Format date with day of week for display (e.g., "Monday, January 1, 2025")
+ * @param {string} dateStr - Date in ISO format (YYYY-MM-DD)
+ * @returns {string} - Formatted date string with day of week
+ */
+function formatDateWithDay(dateStr) {
+  const date = new Date(dateStr + 'T00:00:00');
+  const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  const months = ['January', 'February', 'March', 'April', 'May', 'June', 
+                  'July', 'August', 'September', 'October', 'November', 'December'];
+  return days[date.getDay()] + ', ' + months[date.getMonth()] + ' ' + date.getDate() + ', ' + date.getFullYear();
+}
+
+/**
+ * Check if the business is currently in a temporary closure period
+ * @returns {Object|null} - Temporary closure object if active, null otherwise
+ */
+function getActiveTemporaryClosure() {
+  if (!businessData.temporaryClosure) {
+    return null;
+  }
+  
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  
+  const startDate = new Date(businessData.temporaryClosure.startDate + 'T00:00:00');
+  const endDate = new Date(businessData.temporaryClosure.endDate + 'T23:59:59');
+  
+  if (today >= startDate && today <= endDate) {
+    return businessData.temporaryClosure;
+  }
+  
+  return null;
+}
+
+/**
  * Generate structured data (JSON-LD) for schema.org
  * @param {Object} [options] - Optional configuration object
  * @param {string} [options.image] - Custom image URL (optional)
@@ -41,27 +88,32 @@ function formatTime12Hour(time24) {
 function generateStructuredData(options) {
   options = options || {};
   
-  // Group hours by time slots for structured data
-  const hoursBySlot = {};
-  businessData.hours.forEach(function(hour) {
-    if (!hour.closed) {
-      const key = hour.open + '-' + hour.close;
-      if (!hoursBySlot[key]) {
-        hoursBySlot[key] = [];
-      }
-      hoursBySlot[key].push(hour.day);
-    }
-  });
+  const tempClosure = getActiveTemporaryClosure();
   
-  const openingHoursSpecification = Object.keys(hoursBySlot).map(function(key) {
-    const [opens, closes] = key.split('-');
-    return {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": hoursBySlot[key],
-      "opens": opens,
-      "closes": closes
-    };
-  });
+  // Group hours by time slots for structured data (only if not temporarily closed)
+  const openingHoursSpecification = [];
+  if (!tempClosure) {
+    const hoursBySlot = {};
+    businessData.hours.forEach(function(hour) {
+      if (!hour.closed) {
+        const key = hour.open + '-' + hour.close;
+        if (!hoursBySlot[key]) {
+          hoursBySlot[key] = [];
+        }
+        hoursBySlot[key].push(hour.day);
+      }
+    });
+    
+    openingHoursSpecification.push(...Object.keys(hoursBySlot).map(function(key) {
+      const [opens, closes] = key.split('-');
+      return {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": hoursBySlot[key],
+        "opens": opens,
+        "closes": closes
+      };
+    }));
+  }
   
   const data = {
     "@context": "https://schema.org",
@@ -83,9 +135,13 @@ function generateStructuredData(options) {
     },
     "url": businessData.url,
     "telephone": businessData.phone.tel,
-    "priceRange": businessData.priceRange,
-    "openingHoursSpecification": openingHoursSpecification
+    "priceRange": businessData.priceRange
   };
+  
+  // Only include opening hours if not temporarily closed
+  if (openingHoursSpecification.length > 0) {
+    data.openingHoursSpecification = openingHoursSpecification;
+  }
   
   if (options.description) {
     data.description = options.description;
@@ -111,6 +167,42 @@ function generateStructuredDataJSON(options) {
 }
 
 /**
+ * Calculate the date one day after the given date
+ * @param {string} dateStr - Date in ISO format (YYYY-MM-DD)
+ * @returns {string} - Date one day after in ISO format (YYYY-MM-DD)
+ */
+function getNextDay(dateStr) {
+  const date = new Date(dateStr + 'T00:00:00');
+  date.setDate(date.getDate() + 1);
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return year + '-' + month + '-' + day;
+}
+
+/**
+ * Generate closure notice card HTML
+ * @returns {string} - HTML string for the closure card, or empty string if no closure
+ */
+function generateClosureCardHTML() {
+  const tempClosure = getActiveTemporaryClosure();
+  
+  if (!tempClosure) {
+    return '';
+  }
+  
+  const startFormatted = formatDate(tempClosure.startDate);
+  const endFormatted = formatDate(tempClosure.endDate);
+  const returnDateStr = getNextDay(tempClosure.endDate);
+  const returnDateFormatted = formatDateWithDay(returnDateStr);
+  const message = tempClosure.message || 'Temporarily closed';
+  
+  const warningIcon = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16" style="flex-shrink: 0;"><path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/></svg>';
+  
+  return '<div class="alert alert-warning d-flex align-items-start mb-3" role="alert" style="border-left: 4px solid #ffc107; background-color: #fff3cd; border-color: #ffc107;"><div style="color: #856404; margin-right: 10px; flex-shrink: 0;">' + warningIcon + '</div><div style="flex: 1; color: #856404; word-wrap: break-word;"><div style="font-weight: bold; margin-bottom: 5px;">' + message + '</div><div style="margin-bottom: 5px;">' + startFormatted + ' – ' + endFormatted + '</div><div>We will return to regular hours on <strong>' + returnDateFormatted + '</strong></div></div></div>';
+}
+
+/**
  * Generate business hours table HTML
  * @returns {string} - HTML string for the hours table rows
  */
@@ -118,9 +210,9 @@ function generateHoursTableHTML() {
   let html = '';
   businessData.hours.forEach(function(hour) {
     const timeText = hour.closed ? 'Closed' : formatTime12Hour(hour.open) + ' – ' + formatTime12Hour(hour.close);
-    html += '                    <tr><td><strong>' + hour.day + '</strong></td><td>' + timeText + '</td></tr>\n';
+    html += '<tr><td><strong>' + hour.day + '</strong></td><td>' + timeText + '</td></tr>';
   });
-  return html.trimRight();
+  return html;
 }
 
 /**
@@ -195,12 +287,24 @@ function updateHTMLFile(filePath) {
   
     // Update business hours table (contact.html only)
     if (filePath.includes('contact.html')) {
-      const hoursTableRegex = /(<!-- AUTO-UPDATE: Business hours table -->\s*<table class="business-hours-table">)\s*([\s\S]*?)\s*(<\/table>\s*<!-- END AUTO-UPDATE -->)/;
+      const hoursTableRegex = /(<!-- AUTO-UPDATE: Business hours table -->)\s*([\s\S]*?)\s*(<!-- END AUTO-UPDATE -->)/;
       if (hoursTableRegex.test(content)) {
+        const closureCardHTML = generateClosureCardHTML();
         const hoursTableHTML = generateHoursTableHTML();
+        const tempClosure = getActiveTemporaryClosure();
         content = content.replace(hoursTableRegex, function(match, start, oldContent, end) {
           updated = true;
-          return start + '\n                 ' + hoursTableHTML + '\n                 ' + end;
+          let result = start;
+          if (closureCardHTML) {
+            result += closureCardHTML;
+          }
+          if (tempClosure) {
+            result += '<table class="business-hours-table" style="opacity: 0.7;"><caption style="caption-side: top; text-align: left; font-size: 0.875em; color: #6c757d; margin-bottom: 0.5rem; font-style: italic;">Regular hours (currently closed)</caption>' + hoursTableHTML + '</table>';
+          } else {
+            result += '<table class="business-hours-table">' + hoursTableHTML + '</table>';
+          }
+          result += end;
+          return result;
         });
       }
     

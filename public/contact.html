@@ -58,26 +58,6 @@
       "url": "https://christophersmeatmarket.com",
       "telephone": "+1-613-838-8800",
       "priceRange": "$$",
-      "openingHoursSpecification": [{
-          "@type": "OpeningHoursSpecification",
-          "dayOfWeek": [
-            "Tuesday",
-            "Wednesday",
-            "Thursday",
-            "Friday"
-          ],
-          "opens": "09:30",
-          "closes": "17:00"
-        },
-        {
-          "@type": "OpeningHoursSpecification",
-          "dayOfWeek": [
-            "Saturday"
-          ],
-          "opens": "09:00",
-          "closes": "17:00"
-        }
-      ],
       "description": "Family-owned butcher shop in Richmond, Ontario, specializing in quality free-range, grain-fed meats. Over 25 years of experience."
     }
 
@@ -159,7 +139,23 @@
             <p>
               Hours:<br>
               <!-- AUTO-UPDATE: Business hours table -->
-            <table class="business-hours-table">
+            <div class="alert alert-warning d-flex align-items-start mb-3" role="alert"
+              style="border-left: 4px solid #ffc107; background-color: #fff3cd; border-color: #ffc107;">
+              <div style="color: #856404; margin-right: 10px; flex-shrink: 0;"><svg xmlns="http://www.w3.org/2000/svg"
+                  width="24" height="24" fill="currentColor" viewBox="0 0 16 16" style="flex-shrink: 0;">
+                  <path
+                    d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+                </svg></div>
+              <div style="flex: 1; color: #856404; word-wrap: break-word;">
+                <div style="font-weight: bold; margin-bottom: 5px;">Closed for annual family vacation</div>
+                <div style="margin-bottom: 5px;">January 1, 2026 – February 2, 2026</div>
+                <div>We will return to regular hours on <strong>Tuesday, February 3, 2026</strong></div>
+              </div>
+            </div>
+            <table class="business-hours-table" style="opacity: 0.7;">
+              <caption
+                style="caption-side: top; text-align: left; font-size: 0.875em; color: #6c757d; margin-bottom: 0.5rem; font-style: italic;">
+                Regular hours (currently closed)</caption>
               <tr>
                 <td><strong>Monday</strong></td>
                 <td>Closed</td>
@@ -188,8 +184,7 @@
                 <td><strong>Sunday</strong></td>
                 <td>Closed</td>
               </tr>
-            </table>
-            <!-- END AUTO-UPDATE -->
+            </table><!-- END AUTO-UPDATE -->
             </p>
           </div>
         </div>
