@@ -103,6 +103,10 @@ hr {
   margin-right: auto;
 }
 
+hr:has(+ .intro-text) {
+  margin-top: 0;
+}
+
 .brand,
 .address-bar {
   display: none;
@@ -206,6 +210,13 @@ img {
   letter-spacing: 1px;
   font-size: 1.25em;
   font-weight: 400;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+.intro-text + hr {
+  margin-top: 0;
+  margin-bottom: 1.5em;
 }
 
 .img-border {
